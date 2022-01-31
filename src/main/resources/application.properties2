@@ -1,0 +1,5 @@
+spring.datasource.url=jdbc:postgresql://localhost:5432/TestGoit
+spring.datasource.username=postgres
+spring.datasource.password=02062006ur
+spring.datasource.driver-class-name=org.postgresql.Driver
+spring.jpa.database-platform=org.hibernate.dialect.PostgreSQL82Dialect
