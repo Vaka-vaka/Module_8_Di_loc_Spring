@@ -1,12 +1,11 @@
 package ua.goit.controller;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ua.goit.dto.UserDto;
-import ua.goit.model.User;
 import ua.goit.services.UserService;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
@@ -28,7 +27,7 @@ public class UserController {
     }
 
     @PostMapping
-    public void create(@RequestBody UserDto userDto) {
+    public void create(@RequestBody @Valid UserDto userDto) {
         userService.create(userDto);
         System.out.println(userDto);
     }
@@ -40,6 +39,6 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable UUID id) {
-        userService.deleete(id);
+        userService.delete(id);
     }
 }

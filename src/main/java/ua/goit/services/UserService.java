@@ -1,15 +1,13 @@
 package ua.goit.services;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.goit.dto.UserDto;
 import ua.goit.model.User;
-import ua.goit.model.UserDevelopers;
-import ua.goit.reposetories.UserDevelopersRepository;
 import ua.goit.reposetories.UserRepository;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -18,6 +16,8 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private ModelMapper modelMapper;
 
     public List<UserDto> getAll() {
         return userRepository.findAll()
@@ -27,11 +27,12 @@ public class UserService {
     }
 
     private UserDto convertToDto(User user) {
-        var dto = new UserDto();
-        dto.setLastName(user.getLastName());
-        dto.setFirstName(user.getFirstName());
-        dto.setEmail(user.getEmail());
-        return dto;
+        return modelMapper.map(user, UserDto.class);
+//        var dto = new UserDto();
+//        dto.setLastName(user.getLastName());
+//        dto.setFirstName(user.getFirstName());
+//        dto.setEmail(user.getEmail());
+//        return dto;
     }
 
     public UserDto get(UUID id) {
@@ -41,12 +42,14 @@ public class UserService {
     }
 
     public void create(UserDto userDto) {
-        var user = new User();
-        user.setEmail(userDto.getEmail());
-        user.setPassword(user.getPassword());
-        user.setLastName(userDto.getLastName());
-        user.setFirstName(userDto.getFirstName());
-        userRepository.save(user);
+//        var user = new User();
+//        user.setEmail(userDto.getEmail());
+//        user.setPassword(user.getPassword());
+//        user.setLastName(userDto.getLastName());
+//        user.setFirstName(userDto.getFirstName());
+//        userRepository.save(user);
+        userRepository.save(
+                modelMapper.map(userDto, User.class));
     }
 
     public void update(UUID id, UserDto userDto) {
@@ -62,7 +65,7 @@ public class UserService {
                 });
     }
 
-    public void deleete(UUID id) {
+    public void delete(UUID id) {
         userRepository.deleteById(id);
     }
 }
