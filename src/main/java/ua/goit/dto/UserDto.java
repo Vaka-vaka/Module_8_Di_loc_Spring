@@ -1,13 +1,15 @@
 package ua.goit.dto;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.ToString;
+import ua.goit.validation.UniqueValidation;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 @Data
+@ToString
+@UniqueValidation
 public class UserDto {
 
     @NotEmpty
@@ -15,7 +17,6 @@ public class UserDto {
     private  String lastName;
     @Size(min = 5, message = "First name should be at least 5 character.")
     private String firstName;
-//    @JsonIgnore //пароль через PostMapping, якщо убрать
     @Size(min = 5, message = "Password should be at least 5 character.")
     private String password;
 }
