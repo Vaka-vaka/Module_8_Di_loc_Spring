@@ -17,6 +17,7 @@ public class UserDto {
     private  String lastName;
     @Size(min = 5, message = "First name should be at least 5 character.")
     private String firstName;
+    @NotEmpty
     @Size(min = 5, message = "Password should be at least 5 character.")
     private String password;
 }

@@ -1,6 +1,7 @@
 package ua.goit.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ua.goit.dto.UserDto;
 import ua.goit.services.UserService;
@@ -27,6 +28,7 @@ public class UserController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('admin')")
     public void create(@RequestBody @Valid UserDto userDto) {
         userService.create(userDto);
         System.out.println(userDto);

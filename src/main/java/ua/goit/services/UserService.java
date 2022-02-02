@@ -2,7 +2,9 @@ package ua.goit.services;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import ua.goit.dto.UserDto;
 import ua.goit.model.User;
 import ua.goit.reposetories.UserRepository;
@@ -16,6 +18,8 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     @Autowired
     private ModelMapper modelMapper;
 
@@ -48,17 +52,20 @@ public class UserService {
 //        user.setLastName(userDto.getLastName());
 //        user.setFirstName(userDto.getFirstName());
 //        userRepository.save(user);
-        userRepository.save(
-                modelMapper.map(userDto, User.class));
+        User user = modelMapper.map(userDto, User.class);
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        userRepository.save(user);
     }
 
     public void update(UUID id, UserDto userDto) {
         userRepository.findById(id)
                 .map(user -> {
-                    user.setEmail(userDto.getEmail());
-                    user.setPassword(userDto.getPassword());
-                    user.setLastName(userDto.getLastName());
-                    user.setFirstName(userDto.getFirstName());
+                    if(StringUtils.hasText(userDto.getEmail())){
+                        user.setEmail(userDto.getEmail());
+                    }
+                    if(StringUtils.hasText(userDto.getPassword())){
+                        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+                    }
                     return user;
                 }).ifPresent(user -> {
                     userRepository.save(user);
