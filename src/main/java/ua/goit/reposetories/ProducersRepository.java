@@ -10,5 +10,5 @@ import java.util.UUID;
 @Repository
 public interface ProducersRepository extends JpaRepository<Producers, UUID> {
 
-   // Producers findByFirstName(String name);
+
 }
