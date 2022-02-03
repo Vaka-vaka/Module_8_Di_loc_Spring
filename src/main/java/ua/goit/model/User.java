@@ -14,7 +14,7 @@ import java.util.UUID;
 @Setter
 @ToString
 @Entity
-@Table(name = "users")
+@Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = "first_name"))
 public class User {
 
     @Id
@@ -36,7 +36,7 @@ public class User {
     @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "first_name")
+    @Column(name = "first_name", unique = true)
     private String firstName;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.REFRESH},

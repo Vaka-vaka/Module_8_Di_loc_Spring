@@ -17,11 +17,12 @@ public class RestExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String, String> handleValidationException(
             MethodArgumentNotValidException ex) {
+
         Map<String, String> errors = new HashMap<>();
         ex.getBindingResult().getAllErrors().forEach((error) -> {
-            String fieldPassword = ((FieldError) error).getField();
+            String fieldName = ((FieldError) error).getField();
             String errorMessage = error.getDefaultMessage();
-            errors.put(fieldPassword, errorMessage);
+            errors.put(fieldName, errorMessage);
         });
         return errors;
     }

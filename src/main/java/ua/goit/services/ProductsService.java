@@ -22,8 +22,6 @@ public class ProductsService {
     @Autowired
     private ProductsRepository productsRepository;
     @Autowired
-    private PasswordEncoder passwordEncoder;
-    @Autowired
     private ModelMapper modelMapper;
 
     public List<ProductsDto> getAll() {
@@ -53,17 +51,14 @@ public class ProductsService {
 
     public void update(UUID id, ProductsDto productsDto) {
         productsRepository.findById(id)
-                .map(user -> {
+                .map(products -> {
                     if(StringUtils.hasText(productsDto.getName())){
-                        productsDto.setName(productsDto.getName());
+                        products.setName(productsDto.getName());
                     }
-                    if(StringUtils.hasText((CharSequence) productsDto.getPrice())){
-                        productsDto.setPrice(productsDto.getPrice());
+                    if(StringUtils.hasText(String.valueOf(productsDto.getPrice()))){
+                        products.setPrice(productsDto.getPrice());
                     }
-                    if(StringUtils.hasText(String.valueOf(productsDto.getProducers()))){
-                        productsDto.setProducers(productsDto.getProducers());
-                    }
-                    return user;
+                    return products;
                 }).ifPresent(user -> {
                     productsRepository.save(user);
                 });

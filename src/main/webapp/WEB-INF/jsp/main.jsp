@@ -12,7 +12,7 @@
 
 <%-- This is JSP comment --%>
 
-<span>Hello <c:out value="${userName}"/></span>
+<span><c:out value="${welcomeMsg}"/> <c:out value="${userName}"/></span>
 <div style="text-align: right">
     <a href="<%=request.getContextPath()%>/logout">Logout</a>
 </div>
