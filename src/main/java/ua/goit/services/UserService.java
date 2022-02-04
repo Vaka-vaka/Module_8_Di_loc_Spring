@@ -32,6 +32,7 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
+    @LogMe
     private UserDto convertToDto(User user) {
         return modelMapper.map(user, UserDto.class);
 //        var dto = new UserDto();
@@ -77,5 +78,9 @@ public class UserService {
 
     public void delete(UUID id) {
         userRepository.deleteById(id);
+    }
+
+    public Object getEdit(UUID id) {
+        return userRepository.findById(id);
     }
 }

@@ -1,4 +1,4 @@
-package ua.goit.controller;
+package ua.goit.controller.restPost;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,7 +14,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/products")
-public class ProductsController {
+public class RestProductsController {
 
     @Autowired
     private ProductsService productsService;
