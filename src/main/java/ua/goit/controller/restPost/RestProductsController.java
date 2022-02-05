@@ -13,15 +13,15 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping("rest/products")
 public class RestProductsController {
 
     @Autowired
     private ProductsService productsService;
 
     @GetMapping
-    public List<ProductsDto> getAll() {
-        return productsService.getAll();
+    public List<ProductsDto> getAllDto() {
+        return productsService.getAllDto();
     }
 
     @GetMapping("/{id}")

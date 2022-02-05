@@ -2,6 +2,7 @@ package ua.goit.services;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -24,8 +25,13 @@ public class ProductsService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public List<ProductsDto> getAll() {
-        return productsRepository.findAll()
+    @Cacheable(value = "products")
+    public List<Products> getAll() {
+        return productsRepository.findAll();
+    }
+
+    public List<ProductsDto> getAllDto() {
+        return getAll()
                 .stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
@@ -51,17 +57,22 @@ public class ProductsService {
 
     public void update(UUID id, ProductsDto productsDto) {
         productsRepository.findById(id)
-                .map(products -> {
-                    if(StringUtils.hasText(productsDto.getName())){
-                        products.setName(productsDto.getName());
-                    }
-                    if(StringUtils.hasText(String.valueOf(productsDto.getPrice()))){
-                        products.setPrice(productsDto.getPrice());
-                    }
-                    return products;
-                }).ifPresent(user -> {
-                    productsRepository.save(user);
-                });
+                .map(product -> {
+                    product.setProducers(null);
+                    modelMapper.map(productsDto, product);
+                    return product;
+                }).ifPresent(product -> productsRepository.save(product));
+//                .map(products -> {
+//                    if(StringUtils.hasText(productsDto.getName())){
+//                        products.setName(productsDto.getName());
+//                    }
+//                    if(StringUtils.hasText(String.valueOf((productsDto.getPrice())))){
+//                        products.setPrice(productsDto.getPrice());
+//                    }
+//                    return products;
+//                }).ifPresent(user -> {
+//                    productsRepository.save(user);
+//                });
     }
 
     public void delete(UUID id) {

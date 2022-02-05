@@ -1,41 +1,49 @@
 package ua.goit.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import ua.goit.model.User;
+import ua.goit.services.RolesService;
 import ua.goit.services.UserService;
 
 import java.util.UUID;
 
 @Controller
+@PreAuthorize("hasAuthority('admin')")
 @RequestMapping("/users")
 public class UserController {
 
     @Autowired
     private UserService service;
+    @Autowired
+    private RolesService rolesService;
 
     @GetMapping
     public String getAll(Model model) {
         model.addAttribute("users", service.getAll());
+        model.addAttribute("roles", rolesService.getAll());
         return "users";
     }
 
-    @GetMapping("/new")
+    @PostMapping("/new")
     public String create(Model model) {
         model.addAttribute("user", new User());
         model.addAttribute("users", service.getAll());
+        model.addAttribute("roles", rolesService.getAll());
         return "user";
     }
 
-    @GetMapping("/{id}")
+    @PostMapping("/{id}")
     public String edit(@PathVariable UUID id, Model model) {
         model.addAttribute("user", service.getEdit(id));
         model.addAttribute("users", service.getAll());
+        model.addAttribute("roles", rolesService.getAll());
         return "user";
     }
 

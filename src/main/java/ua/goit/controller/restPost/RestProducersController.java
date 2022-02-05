@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/producers")
+@RequestMapping("res/producers")
 public class RestProducersController {
 
     @Autowired

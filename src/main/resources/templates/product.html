@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Products page</title>
+    <div th:replace="main.html :: header"></div>
+</head>
+<body>
+<div th:replace="main.html :: navigation"></div>
+<div class="container">
+    <div class="row">
+        <h2>Products page</h2>
+    </div>
+
+    <div class="row">
+        <div th:if="${message}">
+            <h2 th:text="${message}"/>
+        </div>
+
+        <div>
+            <form method="POST" enctype="multipart/form-data"
+                  th:action="@{'/products/' + ${product.id} + '/upload'}">
+                <table>
+                    <tr>
+                        <td>File to upload:</td>
+                        <td>
+                            <input type="file" name="file"/></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><input type="submit" value="Upload"/></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+            <div class="btn-group me-2" role="group" aria-label="Second group">
+                <a href="/products" type="button" class="btn btn-success">Back to products</a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <form method="POST" th:action="@{'/products/' + ${product.id}}">
+            <div class="mb-3">
+                <label for="id" class="form-label">ID</label>
+                <input type="text" disabled class="form-control"
+                       th:value="${product.id}"
+                       id="id" placeholder="Id">
+            </div>
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control"
+                       th:value="${product.name}"
+                       name="name"
+                       id="name" placeholder="Products name">
+            </div>
+            <div class="mb-3">
+                <label for="price" class="form-label">Price</label>
+                <input type="text" class="form-control"
+                       th:value="${product.price}" name="price"
+                       id="price" placeholder="Products price">
+            </div>
+            <div class="mb-3">
+                <select class="form-select" id="productsId" value="{product.productsId}"
+                        aria-label="Floating label select example" name="parent">
+                    <option selected disabled>Select products producers</option>
+                    <option th:each="product: ${products}" th:value="${product.id}"><span
+                            th:text="${product.name}"></span></option>
+                </select>
+                <label for="productsId">Parent products</label>
+            </div>
+            <div class="row">
+                <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                    <div class="btn-group me-2" role="group" aria-label="Second group">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+<!--    let id = document.getElementById('id');-->
+<!--    let name = document.getElementById('name');-->
+<!--    let description = document.getElementById('description');-->
+<!--    let parentId = document.getElementById('parentId');-->
+
+<!--    function save() {-->
+<!--     let body = {-->
+<!--     <% if(category.getId() != null) {%>-->
+<!--         id: id.value,-->
+<!--      <% } %>-->
+<!--        parentId: parentId.value,-->
+<!--        name: name.value,-->
+<!--        description: description.value,-->
+<!--      }-->
+<!--      <% if(category.getId() == null) {%>-->
+<!--         let url = '/categories';-->
+<!--         let method = 'POST';-->
+<!--      <% } else { %>-->
+<!--         let url = '/categories/<%= category.getId() %>';-->
+<!--         let method = 'PUT';-->
+<!--      <% } %>-->
+<!--        fetch(url, {-->
+<!--            method: method,-->
+<!--            body: JSON.stringify(body)-->
+<!--        })-->
+<!--        .then( _ => {-->
+<!--            window.location.href = '/categories';-->
+<!--        }-->
+<!--        );-->
+<!--    }-->
+
+
+</script>
+</body>
+</html>
