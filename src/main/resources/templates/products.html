@@ -11,14 +11,12 @@
         <h2>Products page</h2>
     </div>
 
-        <div class="row">
-            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                <div class="btn-group me-2" role="group" aria-label="Second group">
-                    <form action="#" th:action="@{/products/new}" method="post">
-                        <input type="submit" class="btn btn-primary" value="New"/>
-                    </form>
-                </div>
+    <div class="row">
+        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+            <div class="btn-group me-2" role="group" aria-label="Second group">
+                <a href="/products/new" type="button" class="btn btn-primary">New</a>
             </div>
+        </div>
             <table class="table">
                 <thead>
                 <tr>
@@ -36,14 +34,8 @@
                     <td>
                         <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                             <div class="btn-group me-2" role="group" aria-label="Second group">
-                                <form action="#" th:action="@{/products/edit}" method="post">
-                                    <input hidden type="text" th:name = "id" th:value="${product.id}"/>
-                                    <input type="submit" class="btn btn-warning" value="Edit"/>
-                                </form>
-                                <form action="#" th:action="@{/products/remove}" method="post">
-                                    <input hidden type="text" th:name = "id" th:value="${product.id}"/>
-                                    <input type="submit" class="btn btn-danger" value="Remove"/>
-                                </form>
+                                <a th:href="@{'/products/' + ${product.id}}" type="button" class="btn btn-warning">Edit</a>
+                                <a th:href="@{'/products?deleteId=' + ${product.id}}" type="button" class="btn btn-danger">Remove</a>
                             </div>
                         </div>
                     </td>

@@ -4,8 +4,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.ToString;
 import ua.goit.validation.IsUnique;
+import ua.goit.validation.OnUpdate;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Data
@@ -24,4 +28,6 @@ public class UserDto {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
+    @NotEmpty(groups = {OnUpdate.class})
+    private Set<RolesDto> roles = new HashSet<>();
 }

@@ -2,6 +2,7 @@ package ua.goit.services;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import ua.goit.dto.ProducersDto;
@@ -23,8 +24,13 @@ public class ProducersService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public List<ProducersDto> getAll() {
-        return producersRepository.findAll()
+    @Cacheable(value = "producers")
+    public List<Producers> getAll() {
+        return producersRepository.findAll();
+    }
+
+    public List<ProducersDto> getAllDto() {
+        return getAll()
                 .stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
@@ -61,4 +67,5 @@ public class ProducersService {
     public void delete(UUID id) {
         producersRepository.deleteById(id);
     }
+
 }

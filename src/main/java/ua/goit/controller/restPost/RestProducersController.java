@@ -20,8 +20,8 @@ public class RestProducersController {
     private ProducersService producersService;
 
     @GetMapping
-    public List<ProducersDto> getAll() {
-        return producersService.getAll();
+    public List<ProducersDto> getAllDto() {
+        return producersService.getAllDto();
     }
 
     @GetMapping("/{id}")

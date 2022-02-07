@@ -7,7 +7,9 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -46,7 +48,7 @@ public class User {
             joinColumns = { @JoinColumn(name = "userS_id") },
             inverseJoinColumns = { @JoinColumn(name = "roleS_id") }
     )
-    private List<Roles> roles;
+    private Set<Roles> roles = new HashSet<>();
 
 
 

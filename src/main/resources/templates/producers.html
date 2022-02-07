@@ -15,7 +15,7 @@
         <div class="row">
             <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                 <div class="btn-group me-2" role="group" aria-label="Second group">
-                    <form action="#" th:action="@{/producers/newForm}" method="post">
+                    <form action="#" th:action="@{/producers/new}" method="post">
                         <input type="submit" class="btn btn-primary" value="New"/>
                     </form>
                 </div>
@@ -33,14 +33,8 @@
                     <td>
                         <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                             <div class="btn-group me-2" role="group" aria-label="Second group">
-                                <form action="#" th:action="@{/producers/editForm}" method="post">
-                                    <input hidden type="text" th:name = "id" th:value="${producer.id}"/>
-                                    <input type="submit" class="btn btn-warning" value="Edit"/>
-                                </form>
-                                <form action="#" th:action="@{/producers/remove}" method="post">
-                                    <input hidden type="text" th:name = "id" th:value="${producer.id}"/>
-                                    <input type="submit" class="btn btn-danger" value="Remove"/>
-                                </form>
+                                <a th:href="@{'/producers/' + ${producer.id}}" type="button" class="btn btn-warning">Edit</a>
+                                <a th:href="@{'/producers?deleteId=' + ${producer.id}}" type="button" class="btn btn-danger">Remove</a>
                             </div>
                         </div>
                     </td>

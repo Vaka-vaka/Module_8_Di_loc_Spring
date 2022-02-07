@@ -37,14 +37,8 @@
                     <td>
                         <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                             <div class="btn-group me-2" role="group" aria-label="Second group">
-                                <form action="#" th:action="@{/users/edit}" method="post">
-                                    <input hidden type="text" th:name = "id" th:value="${user.id}"/>
-                                    <input type="submit" class="btn btn-warning" value="Edit"/>
-                                </form>
-                                <form action="#" th:action="@{/users/remove}" method="post">
-                                    <input hidden type="text" th:name = "id" th:value="${user.id}"/>
-                                    <input type="submit" class="btn btn-danger" value="Remove"/>
-                                </form>
+                                <a th:href="@{'/users/' + ${user.id}}" type="button" class="btn btn-warning">Edit</a>
+                                <a th:href="@{'/users?deleteId=' + ${user.id}}" type="button" class="btn btn-danger">Remove</a>
                             </div>
                         </div>
                     </td>

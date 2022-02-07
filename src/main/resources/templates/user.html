@@ -23,25 +23,26 @@
         <div class="mb-3">
                     <label for="id" class="form-label">ID</label>
                     <input type="text" disabled class="form-control"
-                           value="${user.id}"
+                           th:value="${user.id}"
                            id="id" placeholder="Id">
                 </div>
         <div class="mb-3">
             <label for="email" class="form-label">Email</label>
             <input type="text" class="form-control"
-                   value="${user.email}"
+                   th:value="${user.email}"
                    id="email" placeholder="User email">
+
         </div>
         <div class="mb-3">
             <label for="lastName" class="form-label">LastName</label>
             <input type="text" class="form-control"
-                   value="${user.lastName}"
+                   th:value="${user.lastName}"
                    id="lastName" placeholder="User lastName">
         </div>
         <div class="mb-3">
                     <label for="firstName" class="form-label">FirstName</label>
                     <input type="text" class="form-control"
-                           value="${user.firstName}"
+                           th:value="${user.firstName}"
                            id="firstName" placeholder="User firstName">
                 </div>
         <div class="mb-3">

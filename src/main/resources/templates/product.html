@@ -11,27 +11,27 @@
         <h2>Products page</h2>
     </div>
 
-    <div class="row">
-        <div th:if="${message}">
-            <h2 th:text="${message}"/>
-        </div>
+<!--    <div class="row">-->
+<!--        <div th:if="${message}">-->
+<!--            <h2 th:text="${message}"/>-->
+<!--        </div>-->
 
-        <div>
-            <form method="POST" enctype="multipart/form-data"
-                  th:action="@{'/products/' + ${product.id} + '/upload'}">
-                <table>
-                    <tr>
-                        <td>File to upload:</td>
-                        <td>
-                            <input type="file" name="file"/></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td><input type="submit" value="Upload"/></td>
-                    </tr>
-                </table>
-            </form>
-        </div>
+<!--        <div>-->
+<!--            <form method="POST" enctype="multipart/form-data"-->
+<!--                  th:action="@{'/products/' + ${product.id} + '/upload'}">-->
+<!--                <table>-->
+<!--                    <tr>-->
+<!--                        <td>File to upload:</td>-->
+<!--                        <td>-->
+<!--                            <input type="file" name="file"/></td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td></td>-->
+<!--                        <td><input type="submit" value="Upload"/></td>-->
+<!--                    </tr>-->
+<!--                </table>-->
+<!--            </form>-->
+<!--        </div>-->
     </div>
     <div class="row">
         <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
@@ -58,7 +58,8 @@
             <div class="mb-3">
                 <label for="price" class="form-label">Price</label>
                 <input type="text" class="form-control"
-                       th:value="${product.price}" name="price"
+                       th:value="${product.price}"
+                       name="price"
                        id="price" placeholder="Products price">
             </div>
             <div class="mb-3">
@@ -81,37 +82,6 @@
     </div>
 </div>
 <script>
-<!--    let id = document.getElementById('id');-->
-<!--    let name = document.getElementById('name');-->
-<!--    let description = document.getElementById('description');-->
-<!--    let parentId = document.getElementById('parentId');-->
-
-<!--    function save() {-->
-<!--     let body = {-->
-<!--     <% if(category.getId() != null) {%>-->
-<!--         id: id.value,-->
-<!--      <% } %>-->
-<!--        parentId: parentId.value,-->
-<!--        name: name.value,-->
-<!--        description: description.value,-->
-<!--      }-->
-<!--      <% if(category.getId() == null) {%>-->
-<!--         let url = '/categories';-->
-<!--         let method = 'POST';-->
-<!--      <% } else { %>-->
-<!--         let url = '/categories/<%= category.getId() %>';-->
-<!--         let method = 'PUT';-->
-<!--      <% } %>-->
-<!--        fetch(url, {-->
-<!--            method: method,-->
-<!--            body: JSON.stringify(body)-->
-<!--        })-->
-<!--        .then( _ => {-->
-<!--            window.location.href = '/categories';-->
-<!--        }-->
-<!--        );-->
-<!--    }-->
-
 
 </script>
 </body>

@@ -8,9 +8,11 @@ import org.springframework.util.StringUtils;
 import ua.goit.annotations.LogMe;
 import ua.goit.dto.UserDto;
 import ua.goit.model.User;
+import ua.goit.reposetories.RolesRepository;
 import ua.goit.reposetories.UserRepository;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -23,6 +25,8 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private ModelMapper modelMapper;
+    @Autowired
+    private RolesRepository rolesRepository;
 
     @LogMe
     public List<UserDto> getAll() {
@@ -49,17 +53,14 @@ public class UserService {
                 .orElseThrow();
     }
 
-    public void create(UserDto userDto) {
-//        var user = new User();
-//        user.setEmail(userDto.getEmail());
-//        user.setPassword(user.getPassword());
-//        user.setLastName(userDto.getLastName());
-//        user.setFirstName(userDto.getFirstName());
-//        userRepository.save(user);
-        User user = modelMapper.map(userDto, User.class);
-        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-        userRepository.save(user);
-    }
+        public UserDto create(UserDto dto) {
+            User model = modelMapper.map(dto, User.class);
+            model.setPassword(passwordEncoder.encode(dto.getPassword()));
+            if (dto.getRoles().isEmpty()) {
+                model.setRoles(Set.of(rolesRepository.findByNameAllIgnoreCase("ROLE_USER")));
+            }
+            return modelMapper.map(userRepository.save(model), UserDto.class);
+        }
 
     public void update(UUID id, UserDto userDto) {
         userRepository.findById(id)
@@ -81,6 +82,6 @@ public class UserService {
     }
 
     public Object getEdit(UUID id) {
-        return userRepository.findById(id);
+        return userRepository.getById(id);
     }
 }

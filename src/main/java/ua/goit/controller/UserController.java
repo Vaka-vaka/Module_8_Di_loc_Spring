@@ -4,14 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import ua.goit.dto.UserDto;
 import ua.goit.model.User;
 import ua.goit.services.RolesService;
 import ua.goit.services.UserService;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
 @Controller
@@ -39,7 +38,8 @@ public class UserController {
         return "user";
     }
 
-    @PostMapping("/{id}")
+    @GetMapping("/{id}")
+//      @PostMapping("/{id}")
     public String edit(@PathVariable UUID id, Model model) {
         model.addAttribute("user", service.getEdit(id));
         model.addAttribute("users", service.getAll());
@@ -58,8 +58,8 @@ public class UserController {
 //    }
 //
 //    @PostMapping("/{id}")
-//    public String update(@ModelAttribute @Valid CategoryDto dto) {
-//        service.update(dto);
+//    public String update(@ModelAttribute @Valid UserDto userDto) {
+//        service.update(userDto);
 //        return "redirect:/categories";
 //    }
 //
