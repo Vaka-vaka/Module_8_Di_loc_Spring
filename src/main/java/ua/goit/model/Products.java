@@ -15,7 +15,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @ToString
-@Table(name = "products")
+@Table(name = "products", uniqueConstraints = @UniqueConstraint(columnNames = "products_name"))
 public class Products {
 
   @Id
