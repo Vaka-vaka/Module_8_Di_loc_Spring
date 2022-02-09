@@ -9,8 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+import ua.goit.dto.ProducersDto;
 import ua.goit.dto.ProductsDto;
 import ua.goit.dto.UserDto;
+import ua.goit.model.Producers;
 import ua.goit.model.Products;
 import ua.goit.model.User;
 import ua.goit.reposetories.ProductsRepository;
@@ -50,8 +52,6 @@ public class ProductsService {
             System.out.println("asdasdasdasdasd");
         }
 
-
-
         public Products get(UUID id) {
             return repository.getById(id);
         }
@@ -61,8 +61,35 @@ public class ProductsService {
     }
 
     public void create(ProductsDto productsDto) {
+        var products = new Products();
+        products.setName(productsDto.getName());
+        repository.save(products);
+    }
+
+    public void update(UUID id, ProductsDto productsDto) {
+        repository.findById(id)
+                .map(producers -> {
+                    if(StringUtils.hasText(productsDto.getName())){
+                        producers.setName(productsDto.getName());
+                    }
+                    return producers;
+                }).ifPresent(user -> {
+                    repository.save(user);
+                });
+    }
+
+    private ProductsDto convertToDto(Products products) {
+        return modelMapper.map(products, ProductsDto.class);
+    }
+
+    public ProductsDto getDto(UUID id) {
+        return  repository.findById(id)
+                .map(this::convertToDto)
+                .orElseThrow();
     }
 
     public void delete(UUID id) {
+        repository.deleteById(id);
     }
+
 }
