@@ -6,11 +6,8 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import ua.goit.dto.ProducersDto;
-import ua.goit.dto.ProductsDto;
 import ua.goit.model.Producers;
-import ua.goit.model.Products;
 import ua.goit.reposetories.ProducersRepository;
-import ua.goit.reposetories.ProductsRepository;
 
 import java.util.List;
 import java.util.UUID;
