@@ -9,6 +9,7 @@ import ua.goit.dto.ProducersDto;
 import ua.goit.model.Producers;
 import ua.goit.reposetories.ProducersRepository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -43,10 +44,15 @@ public class ProducersService {
                 .orElseThrow();
     }
 
-    public void create(ProducersDto producersDto) {
-        var producers = new Producers();
-        producers.setName(producersDto.getName());
-        producersRepository.save(producers);
+//    public void create(ProducersDto producersDto) {
+//        var producers = new Producers();
+//        producers.setName(producersDto.getName());
+//        producersRepository.save(producers);
+//    }
+
+    @Transactional
+    public void create(ProducersDto dto) {
+        producersRepository.save(mapFromDto(dto));
     }
 
     public void update(UUID id, ProducersDto producersDto) {
@@ -63,6 +69,10 @@ public class ProducersService {
 
     public void delete(UUID id) {
         producersRepository.deleteById(id);
+    }
+
+    private Producers mapFromDto(ProducersDto dto) {
+        return modelMapper.map(dto, Producers.class);
     }
 
 }
